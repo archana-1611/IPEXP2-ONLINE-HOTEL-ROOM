@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxeHorizon Resort & Hotel | Luxury Indian Sanctuaries & Heritage Palaces</title>
+  <meta name="description" content="Experience authentic royal hospitality at LuxeHorizon Resort & Hotel. Heritage suites, multi-generational family villas, ayurvedic wellness cottages, and beachfront sanctuaries across India.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       Header & Navigation Bar
+       ========================================================================== -->
+  <header class="navbar">
+    <a href="#" class="nav-brand" data-nav-target="rooms">
+      <span class="brand-icon">⚜️</span>
+      <div>
+        <span class="brand-name">LUXEHORIZON</span>
+        <span class="brand-sub">INDIAN SANCTUARIES & RESORTS</span>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#" class="nav-link active" data-nav-target="rooms" id="nav-item-rooms">Sanctuaries</a>
+      <a href="#" class="nav-link" data-nav-target="resorts" id="nav-item-resorts">Destinations</a>
+      <a href="#" class="nav-link" data-nav-target="room-intro" id="nav-item-room-intro">Room Guide</a>
+      <a href="#" class="nav-link" data-nav-target="dashboard" id="nav-item-dashboard">My Dashboard</a>
+      <a href="#" class="nav-link" data-nav-target="about" id="nav-item-about">About Us</a>
+      <a href="#" class="nav-link" data-nav-target="contact" id="nav-item-contact">Concierge</a>
+      <a href="#" class="nav-link" data-nav-target="faq" id="nav-item-faq">FAQs</a>
+      <a href="#" class="nav-link" data-nav-target="travel" id="nav-item-travel">Travel Guide</a>
+      <a href="#" class="nav-link" data-nav-target="privacy" id="nav-item-privacy">Privacy</a>
+      <a href="#" class="nav-link" data-nav-target="admin" id="nav-item-admin" style="display: none; color: var(--gold-400);">🛡️ Admin Portal</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Currency Badge -->
+      <span class="currency-pill">🇮🇳 INR (₹)</span>
+
+      <!-- Theme Switcher Button -->
+      <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle Light and Dark Mode">
+        ☀️ Light Mode
+      </button>
+
+      <!-- Role Pill -->
+      <div id="current-role-badge" class="role-badge user-role">
+        👑 Guest (Vikramaditya)
+      </div>
+
+      <button id="toggle-role-btn" class="btn btn-outline btn-sm">
+        🛡️ Admin Portal
+      </button>
+
+      <button class="btn btn-primary btn-sm" onclick="App.openRegisterModal()">
+        Account
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN CONTENT VIEW CONTAINERS
+       ========================================================================== -->
+  <main>
+
+    <!-- -------------------------------------------------------------
+         VIEW 1: ROOMS / HOME VIEW (Default Visible)
+         ------------------------------------------------------------- -->
+    <section id="view-rooms" class="view-section">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <span class="hero-pill">✦ The Pinnacle of Authentic Indian Hospitality</span>
+          <h1 class="hero-title">Where Royal Heritage Meets <span>Timeless Sanctuary Serenity</span></h1>
+          <p class="hero-subtitle">
+            Eight mastercrafted room categories designed for Indian multi-generational families, royal palace weddings, authentic ayurvedic rejuvenation, and high-productivity executive workations across India's most scenic destinations.
+          </p>
+
+          <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+            <a href="#rooms-section" class="btn btn-primary">Explore Room Suites (₹ INR)</a>
+            <a href="#resorts-section" class="btn btn-outline">Our 8 Indian Resorts</a>
+            <button class="btn btn-gold-outline" onclick="App.navigateTo('dashboard')">My Reservations & Invoices</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Availability Checker Search Bar (Select-Based: No Typing Needed!) -->
+      <div class="search-bar-wrapper">
+        <form id="search-availability-form" class="search-bar">
+          <div class="search-field">
+            <label>📍 Destination & Resort</label>
+            <select id="search-destination" aria-label="Select Destination and Resort">
+              <!-- Dynamically populated by App.renderDestinationSelects() -->
+            </select>
+          </div>
+
+          <div class="search-field">
+            <label>📅 Arrival Date</label>
+            <input type="date" id="search-checkin" required>
+          </div>
+
+          <div class="search-field">
+            <label>🛫 Departure Date</label>
+            <input type="date" id="search-checkout" required>
+          </div>
+
+          <div class="search-field">
+            <label>🛏️ Category</label>
+            <select id="search-category">
+              <option value="all">All Room Types</option>
+              <option value="Heritage">👑 Royal Heritage</option>
+              <option value="Family">👨‍👩‍👧‍👦 Joint Family</option>
+              <option value="Wellness">🌿 Ayurvedic & Yoga</option>
+              <option value="Romance">💖 Plunge-Pool Romance</option>
+              <option value="Business">💼 Corporate Executive</option>
+              <option value="Wedding">💍 Destination Wedding</option>
+              <option value="Presidential">🏛️ Palace Penthouse</option>
+            </select>
+          </div>
+
+          <div class="search-field">
+            <label>👥 Travelers</label>
+            <select id="search-guests">
+              <option value="1">1 Guest</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests (Family)</option>
+              <option value="6">6 Guests (Joint Family Villa)</option>
+              <option value="8">8 Guests (Palace Penthouse)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="height: 100%; border-radius: var(--radius-sm); white-space: nowrap;">
+            Check Availability
+          </button>
+        </form>
+      </div>
+
+      <!-- Live Room Availability Results Container (Injected by JS) -->
+      <div class="section" style="padding-top: 0; padding-bottom: 0;">
+        <div id="availability-results-container" style="display: none;"></div>
+      </div>
+
+      <!-- Rooms Grid (Specialized for Indian Needs) -->
+      <section class="section" id="rooms-section">
+        <div class="section-header">
+          <span class="section-badge">Accommodation Portfolio</span>
+          <h2 class="section-title">Eight Masterfully Calibrated Indian Sanctuaries</h2>
+          <p class="section-desc">
+            Tailored specifically for Indian joint families, elders, romantic honeymooners, wellness seekers, and destination wedding parties with 100% pure vegetarian / Jain culinary support and authentic luxury touches.
+          </p>
+        </div>
+
+        <!-- Category Filter Chips -->
+        <div id="category-chips-container" class="category-filter-chips"></div>
+
+        <div id="rooms-grid-container" class="rooms-grid">
+          <!-- Injected dynamically by State.renderRooms() -->
+        </div>
+      </section>
+
+      <!-- Indian Destinations & Resorts Showcase -->
+      <section class="section" id="resorts-section" style="background: var(--bg-surface); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+        <div class="section-header">
+          <span class="section-badge">Iconic Indian Destinations</span>
+          <h2 class="section-title">Eight Breathtaking Luxury Resorts Across India</h2>
+          <p class="section-desc">
+            From the palatial waters of Udaipur and golden beaches of Goa, to the fragrant tea estates of Kerala and snow-peaked chalets of Manali.
+          </p>
+        </div>
+
+        <div id="resorts-grid-container" class="resorts-grid">
+          <!-- Injected dynamically by State.renderResorts() -->
+        </div>
+      </section>
+
+      <!-- Signature Privileges Tailored for Indian Travelers -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-badge">The LuxeHorizon Difference</span>
+          <h2 class="section-title">Thoughtfully Crafted for Indian Travel Needs</h2>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:2rem; max-width:1280px; margin:0 auto;">
+          <div style="background:var(--bg-card); padding:2rem; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+            <div style="font-size:2rem; margin-bottom:1rem;">🍽️</div>
+            <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-main); margin-bottom:0.5rem;">Dedicated Pure Veg & Jain Kitchens</h4>
+            <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;">Independent kitchen sections overseen by specialty Maharaj chefs preparing authentic Satvik, Jain, Rajasthani, and South Indian thalis.</p>
+          </div>
+          <div style="background:var(--bg-card); padding:2rem; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+            <div style="font-size:2rem; margin-bottom:1rem;">👨‍👩‍👧‍👦</div>
+            <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-main); margin-bottom:0.5rem;">Multi-Generation Family Comfort</h4>
+            <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;">Interconnected bedrooms, in-suite pooja corners, baby milk warmers, extra rollaway cots, and elderly-friendly walk-in bathrooms.</p>
+          </div>
+          <div style="background:var(--bg-card); padding:2rem; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+            <div style="font-size:2rem; margin-bottom:1rem;">🌿</div>
+            <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-main); margin-bottom:0.5rem;">Authentic Ayurvedic Health Spas</h4>
+            <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;">Resident certified Ayurvedic doctors (Vaidyas), Panchakarma therapy centers, Swedana herbal steam rooms, and sunrise yoga sessions.</p>
+          </div>
+          <div style="background:var(--bg-card); padding:2rem; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+            <div style="font-size:2rem; margin-bottom:1rem;">🚗</div>
+            <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-main); margin-bottom:0.5rem;">Valet & Driver Accommodations</h4>
+            <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;">Complimentary clean driver dormitories and meals on-site, plus luxury Mercedes and Innova Crysta airport chauffeur fleet.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- -------------------------------------------------------------
+         VIEW: DESTINATIONS & RESORTS (Dedicated View Section)
+         ------------------------------------------------------------- -->
+    <section id="view-resorts" class="view-section" style="display: none;">
+      <div class="section">
+        <div class="section-header">
+          <span class="section-badge">Our Luxury Portfolio</span>
+          <h2 class="section-title">Explore LuxeHorizon Indian Resorts</h2>
+          <p class="section-desc">
+            Select any destination to instantly book a room with all tariffs in Indian Rupees (₹).
+          </p>
+        </div>
+        <div id="resorts-grid-container-view" class="resorts-grid"></div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------------
+         VIEW 2: USER DASHBOARD
+         ------------------------------------------------------------- -->
+    <section id="view-dashboard" class="view-section" style="display: none;">
+      <div class="section">
+        <div class="section-header">
+          <span class="section-badge">Guest Portal</span>
+          <h2 class="section-title">My Dashboard & Booking History</h2>
+          <p class="section-desc">
+            Manage your personal profile, review reservation history, modify or cancel upcoming stays within policy, and download verified GST confirmation invoices.
+          </p>
+        </div>
+
+        <div class="dashboard-wrapper">
+          <div class="dashboard-tabs">
+            <button class="dash-tab-btn active" data-dash-tab="bookings">
+              📅 Booking History & Status
+            </button>
+            <button class="dash-tab-btn" data-dash-tab="profile">
+              👤 Guest Profile & Stay Preferences
+            </button>
+          </div>
+
+          <div class="dashboard-content">
+            <!-- Tab: Bookings History -->
+            <div id="dash-tab-bookings" class="dash-tab-content">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+                <div>
+                  <h3 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--text-main);">Your Stays Across India</h3>
+                  <div style="font-size:0.85rem; color:var(--text-secondary);">
+                    All active, completed, and cancelled reservations tied to your account. Tariffs quoted in Indian Rupees (₹ INR).
+                  </div>
+                </div>
+                <div class="three-day-policy-note policy-allowed">
+                  ℹ️ <strong>Hotel Policy:</strong> Free change or cancellation up to 3 days (72 hours) before arrival.
+                </div>
+              </div>
+
+              <!-- Container for user bookings -->
+              <div id="user-bookings-container">
+                <!-- Rendered dynamically by State.renderUserBookings() -->
+              </div>
+            </div>
+
+            <!-- Tab: Profile Details -->
+            <div id="dash-tab-profile" class="dash-tab-content" style="display: none;">
+              <div class="profile-grid">
+                <div class="profile-card-left">
+                  <div class="profile-avatar-wrap">
+                    <img id="user-profile-avatar" src="" alt="Guest Avatar" class="profile-avatar">
+                  </div>
+                  <h3 id="user-profile-display-name" class="profile-name"></h3>
+                  <div id="user-profile-tier" class="profile-tier"></div>
+
+                  <div class="profile-stat-box">
+                    <div class="profile-stat-label">Kohinoor Rewards Balance</div>
+                    <div id="user-profile-points" class="profile-stat-value"></div>
+                  </div>
+
+                  <div class="profile-stat-box">
+                    <div class="profile-stat-label">Membership Status</div>
+                    <div class="profile-stat-value" style="color:var(--success);">Active & Verified</div>
+                  </div>
+
+                  <button class="btn btn-primary btn-sm" onclick="App.openEditProfileModal()" style="width: 100%; margin-top: 1rem;">
+                    ✏️ Edit Profile Info
+                  </button>
+                  <button class="btn btn-outline btn-sm" onclick="App.openRegisterModal()" style="width: 100%; margin-top: 0.5rem;">
+                    👤 Switch / Register Account
+                  </button>
+                </div>
+
+                <div>
+                  <h3 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--text-main); margin-bottom:1.5rem;">Guest Profile Information (Req 1)</h3>
+                  
+                  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
+                    <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; padding:1.25rem;">
+                      <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; display:block;">Email Address</span>
+                      <strong id="user-profile-email" style="color:var(--text-main); font-size:0.95rem; word-break:break-all;"></strong>
+                    </div>
+
+                    <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; padding:1.25rem;">
+                      <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; display:block;">Primary Telephone</span>
+                      <strong id="user-profile-phone" style="color:var(--text-main); font-size:0.95rem;"></strong>
+                    </div>
+
+                    <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; padding:1.25rem; grid-column:span 2;">
+                      <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; display:block;">Residential / Billing Address</span>
+                      <strong id="user-profile-address" style="color:var(--text-main); font-size:0.95rem;"></strong>
+                    </div>
+                  </div>
+
+                  <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--gold-400); margin-bottom:1rem;">Custom Stay Preferences</h4>
+                  <div style="background:var(--gold-subtle); border:1px solid var(--gold-border); border-radius:8px; padding:1.5rem; font-size:0.9rem; line-height:1.7;">
+                    <p>🛏️ <strong>Bedding Configuration:</strong> Royal Emperor King, Hypoallergenic Goose Down Pillows</p>
+                    <p>☕ <strong>Dietary & Beverage:</strong> Pure Vegetarian / Satvik on Tuesdays, Cardamom Masala Chai & South Indian Filter Coffee</p>
+                    <p>🕒 <strong>Arrival Routine:</strong> Fast-track in-suite registration with saffron rose water welcome</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------------
+         VIEW 3: ADMINISTRATOR PORTAL
+         ------------------------------------------------------------- -->
+    <section id="view-admin" class="view-section" style="display: none;">
+      <div class="section">
+        <div class="admin-wrapper">
+          <div class="admin-header">
+            <div class="admin-title-wrap">
+              <div>
+                <h2 style="font-family:var(--font-serif); font-size:1.8rem; color:var(--text-main);">LuxeHorizon Central Operations Portal</h2>
+                <p style="font-size:0.88rem; color:var(--text-secondary);">
+                  Authorized Administrator Management Console • Inventory, Indian Rupee (₹) Tariffs & Live CMS
+                </p>
+              </div>
+              <span class="admin-badge">Admin Access Active</span>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="App.logoutAdmin()">
+              🔒 Log Out Admin
+            </button>
+          </div>
+
+          <!-- Admin Subnavigation Tabs -->
+          <div class="admin-subnav">
+            <button class="admin-nav-btn active" data-admin-tab="rooms">
+              🛏️ Room Tariffs & Inventory (Req 7)
+            </button>
+            <button class="admin-nav-btn" data-admin-tab="bookings">
+              📅 All Hotel Bookings (Req 8 & 9)
+            </button>
+            <button class="admin-nav-btn" data-admin-tab="cms">
+              📝 Static Pages Live CMS (Req 10)
+            </button>
+          </div>
+
+          <!-- Tab 1: Room Price & Quantity Manager (Req 7 in ₹ INR) -->
+          <div id="admin-tab-rooms" class="admin-tab-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:1rem;">
+              <div>
+                <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-main);">Manage All 8 Room Categories</h3>
+                <p style="font-size:0.85rem; color:var(--text-secondary);">
+                  Update nightly price rate in Indian Rupees (₹ INR) and total inventory quantity for all accommodation classes.
+                </p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="App.saveAllAdminRooms()">
+                💾 Save All Room Changes
+              </button>
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Room Type & Category</th>
+                    <th>Nightly Rate (₹ INR)</th>
+                    <th>Total Inventory (Quantity)</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-rooms-table-body">
+                  <!-- Injected dynamically by State.renderAdminRoomManager() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab 2: Admin All Bookings Manager (Req 8 & 9) -->
+          <div id="admin-tab-bookings" class="admin-tab-content" style="display: none;">
+            <div style="margin-bottom:1.5rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-main);">All Registered Hotel Bookings</h3>
+              <p style="font-size:0.85rem; color:var(--text-secondary);">
+                Administrators can modify any booking details (Req 8) or cancel any booking (Req 9) with emergency override permissions.
+              </p>
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Guest Details</th>
+                    <th>Room & Resort</th>
+                    <th>Dates & Nights</th>
+                    <th>Grand Total (₹)</th>
+                    <th>Status</th>
+                    <th>Admin Controls</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-bookings-table-body">
+                  <!-- Injected dynamically by State.renderAdminBookingsManager() -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab 3: Admin Static Pages Content CMS (Req 10) -->
+          <div id="admin-tab-cms" class="admin-tab-content" style="display: none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+              <div>
+                <h3 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--text-main);">Static Pages Live CMS Editor</h3>
+                <p style="font-size:0.85rem; color:var(--text-secondary);">
+                  Modify live website content for Indian room introductions, about us, contact info, FAQs, travel guide, and privacy policy.
+                </p>
+              </div>
+              <button class="btn btn-primary" onclick="App.saveAdminCMS()">
+                🚀 Save & Publish CMS Changes
+              </button>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:2.5rem;">
+              <!-- 1. Room Intro Page CMS -->
+              <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; padding:1.75rem;">
+                <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--gold-400); margin-bottom:1rem;">1. Room Type Introduction Page</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Page Title</label>
+                    <input type="text" id="cms-room-title" style="width:100%;">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Subtitle</label>
+                    <input type="text" id="cms-room-subtitle" style="width:100%;">
+                  </div>
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Overview Content</label>
+                  <textarea id="cms-room-content" rows="3" style="width:100%;"></textarea>
+                </div>
+              </div>
+
+              <!-- 2. About Us Page CMS -->
+              <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; padding:1.75rem;">
+                <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--gold-400); margin-bottom:1rem;">2. About Us Information</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Section Title</label>
+                    <input type="text" id="cms-about-title" style="width:100%;">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Tagline Quote</label>
+                    <input type="text" id="cms-about-tagline" style="width:100%;">
+                  </div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                  <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Resort Legacy & Story</label>
+                  <textarea id="cms-about-story" rows="3" style="width:100%;"></textarea>
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Core Mission Statement</label>
+                  <textarea id="cms-about-mission" rows="2" style="width:100%;"></textarea>
+                </div>
+              </div>
+
+              <!-- 3. Contact Us Page CMS -->
+              <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; padding:1.75rem;">
+                <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--gold-400); margin-bottom:1rem;">3. Contact Us & Concierge Information</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Concierge Phone</label>
+                    <input type="text" id="cms-contact-phone" style="width:100%;">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Concierge Email</label>
+                    <input type="text" id="cms-contact-email" style="width:100%;">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Physical Address</label>
+                    <input type="text" id="cms-contact-address" style="width:100%;">
+                  </div>
+                  <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Operating Hours</label>
+                    <input type="text" id="cms-contact-hours" style="width:100%;">
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Travel & Shipping Guide CMS -->
+              <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; padding:1.75rem;">
+                <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--gold-400); margin-bottom:1rem;">4. Indian Travel & Shipping Guide</h4>
+                <div style="margin-bottom:1rem;">
+                  <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Airport Transfers Title</label>
+                  <input type="text" id="cms-travel-air-title" style="width:100%; margin-bottom:0.5rem;">
+                  <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Transfers Description</label>
+                  <textarea id="cms-travel-air-desc" rows="2" style="width:100%;"></textarea>
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Luggage Courier Description</label>
+                  <textarea id="cms-travel-ship-desc" rows="2" style="width:100%;"></textarea>
+                </div>
+              </div>
+
+              <!-- 5. FAQs Editor -->
+              <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:10px; padding:1.75rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                  <h4 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--gold-400);">5. Customer Service Q&A (FAQs)</h4>
+                  <button class="btn btn-outline btn-sm" onclick="App.addAdminFAQ()">+ Add New Q&A</button>
+                </div>
+                <div id="cms-faqs-editor-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------------
+         STATIC PAGES
+         ------------------------------------------------------------- -->
+    <!-- Room Introduction Page -->
+    <section id="view-room-intro" class="view-section" style="display: none;">
+      <div class="section">
+        <div id="static-page-content-room-intro"></div>
+      </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="view-about" class="view-section" style="display: none;">
+      <div class="section">
+        <div id="static-page-content-about"></div>
+      </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="view-contact" class="view-section" style="display: none;">
+      <div class="section">
+        <div id="static-page-content-contact"></div>
+      </div>
+    </section>
+
+    <!-- Customer Service Q&A (FAQs) -->
+    <section id="view-faq" class="view-section" style="display: none;">
+      <div class="section">
+        <div id="static-page-content-faq"></div>
+      </div>
+    </section>
+
+    <!-- Local Travel & Shipping Guide -->
+    <section id="view-travel" class="view-section" style="display: none;">
+      <div class="section">
+        <div id="static-page-content-travel"></div>
+      </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section id="view-privacy" class="view-section" style="display: none;">
+      <div class="section">
+        <div id="static-page-content-privacy"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODALS SYSTEM (SELECT-BASED, ZERO TYPING NEEDED!)
+       ========================================================================== -->
+
+  <!-- 1. Room Booking Modal with Integrated Payment Gateway (Functionality 2) -->
+  <div id="booking-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Reserve Your Indian Sanctuary</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="booking-form" onsubmit="event.preventDefault(); App.processBookingSubmission();">
+          <input type="hidden" id="booking-room-id">
+
+          <!-- Selected Room Preview & Fast Switcher Dropdown -->
+          <div style="display:flex; align-items:center; gap:1.25rem; background:var(--gold-subtle); border:1px solid var(--gold-border); border-radius:8px; padding:1rem; margin-bottom:1.5rem;">
+            <img id="booking-modal-room-thumb" src="" alt="Room Thumbnail" style="width:85px; height:65px; border-radius:6px; object-fit:cover;">
+            <div style="flex:1;">
+              <h4 id="booking-modal-room-name" style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-main);"></h4>
+              <div id="booking-modal-room-price" style="font-size:0.95rem; color:var(--gold-400); font-weight:700;"></div>
+            </div>
+          </div>
+
+          <!-- Destination & Room Selection Dropdowns (SELECT NOT TO TYPE) -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">📍 Select Destination Resort *</label>
+              <select id="booking-resort-select" style="width:100%;">
+                <!-- Injected dynamically -->
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">🛏️ Select Room Type *</label>
+              <select id="booking-room-select" style="width:100%;">
+                <!-- Injected dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Stay Dates & Guests -->
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:1.25rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Check-In Date *</label>
+              <input type="date" id="booking-checkin" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Check-Out Date *</label>
+              <input type="date" id="booking-checkout" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Number of Guests *</label>
+              <select id="booking-guests" style="width:100%;">
+                <option value="1">1 Guest</option>
+                <option value="2" selected>2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5 Guests</option>
+                <option value="6">6 Guests (Family Villa)</option>
+                <option value="8">8 Guests (Penthouse)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Meal Plan Selection (Select Not To Type) -->
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">🍽️ Meal Plan Selection (Select Options) *</label>
+            <select id="booking-meal-plan" style="width:100%;">
+              <option value="cp" selected>Room with Royal Buffet Breakfast (CP Included)</option>
+              <option value="map">Modified American Plan: Breakfast + Royal Dinner Thali (MAP +₹1,800/night)</option>
+              <option value="ap">All-Inclusive Royal Gourmet Dining: Breakfast, Lunch & Thali Dinner (AP +₹3,200/night)</option>
+            </select>
+          </div>
+
+          <!-- Indian Cultural Preferences & Needs (Select Not To Type) -->
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">✨ Indian Stay Needs & Special Arrangements (Select) *</label>
+            <select id="booking-guest-preference" style="width:100%;">
+              <option value="Standard Luxury Stay">Standard Luxury Stay</option>
+              <option value="Pure Vegetarian (Satvik / Jain Options on Request)">Pure Vegetarian (Satvik / Jain Options on Request)</option>
+              <option value="Extra Rollaway Bed for Senior Citizen / Child Requested">Extra Rollaway Bed for Senior Citizen / Child Requested</option>
+              <option value="Elderly-Friendly Ground Floor Room Arrangement">Elderly-Friendly Ground Floor Room Arrangement</option>
+              <option value="Pooja / Morning Sitar High-Tea Setup">Pooja / Morning Sitar High-Tea Setup</option>
+              <option value="Complimentary Driver Accommodation & Meals Required">Complimentary Driver Accommodation & Meals Required</option>
+              <option value="Airport Chauffeur Pick-up Coordination">Airport Chauffeur Pick-up Coordination</option>
+            </select>
+          </div>
+
+          <!-- Guest Contact Info -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Full Legal Name *</label>
+              <input type="text" id="booking-guest-name" required placeholder="Vikramaditya Singhania" style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Email (For GST Voucher) *</label>
+              <input type="email" id="booking-guest-email" required placeholder="vikram.singhania@luxeguest.in" style="width:100%;">
+            </div>
+            <div style="grid-column: span 2;">
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Mobile Number (+91 Indian WhatsApp Confirmation) *</label>
+              <input type="tel" id="booking-guest-phone" required placeholder="+91 98201 44521" style="width:100%;">
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Additional Notes (Optional)</label>
+            <input type="text" id="booking-special-requests" placeholder="e.g. High floor lake view, celebration cake, extra towels" style="width:100%;">
+          </div>
+
+          <!-- Price Summary Breakdown in Indian Rupee (₹ INR) -->
+          <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; padding:1.25rem; margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.85rem; color:var(--text-secondary);">
+              <span>Duration:</span>
+              <strong id="summary-nights" style="color:var(--text-main);">0 Nights</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.85rem; color:var(--text-secondary);">
+              <span>Sanctuary Subtotal:</span>
+              <span id="summary-room-total">₹0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; font-size:0.85rem; color:var(--text-secondary);">
+              <span>Hospitality GST (12%):</span>
+              <span id="summary-taxes">₹0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:1.25rem; font-weight:700; color:var(--text-main); border-top:1px dashed var(--border-subtle); padding-top:0.75rem;">
+              <span>Grand Total Due (INR):</span>
+              <span id="summary-grand-total" style="color:var(--gold-400);">₹0</span>
+            </div>
+          </div>
+
+          <!-- Integrated Payment Method Dropdown (Select Not To Type) -->
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">💳 Select Payment Method (UPI / RuPay / Cards / NetBanking) *</label>
+            <select id="booking-payment-method" style="width:100%;">
+              <option value="upi" selected>UPI (Google Pay / PhonePe / Paytm / BHIM)</option>
+              <option value="card">Credit / Debit Card (RuPay, Visa, Mastercard, Amex)</option>
+              <option value="netbanking">NetBanking (HDFC, ICICI, SBI, Axis, Kotak)</option>
+              <option value="points">Kohinoor Loyalty Reward Points (Full / Partial)</option>
+            </select>
+          </div>
+
+          <div class="credit-card-preview">
+            <div class="card-chip"></div>
+            <div class="card-number-display">•••• •••• •••• 8820 (RuPay / UPI Instant)</div>
+            <div class="card-holder-row">
+              <div>
+                <div class="card-label">Cardholder / UPI VPA</div>
+                <div style="font-weight:600;">VIKRAMADITYA SINGHANIA</div>
+              </div>
+              <div>
+                <div class="card-label">Gateway</div>
+                <div style="font-weight:600;">RBI 256-Bit SSL</div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.1rem; font-size: 1.05rem;">
+            Complete Reservation & Generate GST Invoice
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Booking Confirmation Modal -->
+  <div id="confirmation-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 580px; text-align: center;">
+      <div class="modal-body" style="padding: 3rem 2rem;">
+        <div style="font-size: 3.5rem; margin-bottom: 1rem; color: var(--success);">✅</div>
+        <span class="hero-pill" style="margin-bottom: 1rem;">Sanctuary Guaranteed</span>
+        <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.5rem;">
+          Your Indian Sanctuary Awaits!
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 2rem;">
+          An official GST tax confirmation voucher has been generated and dispatched to your email.
+        </p>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.5rem; text-align: left; margin-bottom: 2rem; font-size: 0.9rem;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Confirmation Code:</span>
+            <strong id="conf-booking-id" style="color:var(--gold-400); font-family:var(--font-mono);"></strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Guest Name:</span>
+            <strong id="conf-guest-name" style="color:var(--text-main);"></strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Voucher Sent To:</span>
+            <strong id="conf-guest-email" style="color:var(--text-main);"></strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Sanctuary Category:</span>
+            <strong id="conf-room-name" style="color:var(--text-main);"></strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Dates of Stay:</span>
+            <strong id="conf-dates" style="color:var(--text-main);"></strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-top:1px dashed var(--border-subtle); padding-top:0.5rem; font-size:1.05rem;">
+            <span style="color:var(--text-muted);">Amount Paid (INR):</span>
+            <strong id="conf-total-paid" style="color:var(--gold-400);"></strong>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:1rem; justify-content:center;">
+          <button class="btn btn-primary" onclick="closeModal('confirmation-modal'); App.navigateTo('dashboard');">
+            View My Dashboard
+          </button>
+          <button class="btn btn-outline" onclick="closeModal('confirmation-modal')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Modify Booking Modal (3-Day Rule) -->
+  <div id="modify-booking-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Modify Reservation Details</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="three-day-policy-note policy-allowed" style="margin-bottom: 1.5rem;">
+          ✅ <strong>Policy Notice:</strong> Free modification permitted up to 3 days (72h) before check-in.
+        </div>
+
+        <form id="modify-booking-form" onsubmit="event.preventDefault(); App.saveModifiedBooking();">
+          <input type="hidden" id="modify-booking-id">
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Booking Confirmation</label>
+            <strong id="modify-display-id" style="font-family:var(--font-mono); color:var(--gold-400); font-size:1.1rem;"></strong>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Room Category (Select)</label>
+            <select id="modify-room-select" style="width:100%;">
+              <!-- Injected dynamically -->
+            </select>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">New Arrival Date</label>
+              <input type="date" id="modify-checkin" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">New Departure Date</label>
+              <input type="date" id="modify-checkout" required style="width:100%;">
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Number of Guests</label>
+            <input type="number" id="modify-guests" min="1" max="8" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1.75rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Updated Preferences</label>
+            <textarea id="modify-requests" rows="2" style="width:100%;"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Update Reservation
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Edit Profile Modal -->
+  <div id="edit-profile-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Guest Profile & Preferences</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-profile-form" onsubmit="event.preventDefault(); App.updateUserProfile({
+          name: document.getElementById('edit-profile-name').value,
+          email: document.getElementById('edit-profile-email').value,
+          phone: document.getElementById('edit-profile-phone').value,
+          address: document.getElementById('edit-profile-address').value,
+          preferredBed: document.getElementById('edit-profile-bed').value,
+          dietaryPreferences: document.getElementById('edit-profile-dietary').value
+        });">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Full Name *</label>
+              <input type="text" id="edit-profile-name" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Email Address *</label>
+              <input type="email" id="edit-profile-email" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Mobile (+91) *</label>
+              <input type="tel" id="edit-profile-phone" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Preferred Bedding</label>
+              <input type="text" id="edit-profile-bed" style="width:100%;">
+            </div>
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Residential / City Address</label>
+            <input type="text" id="edit-profile-address" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Dietary (Pure Veg / Jain) & Stay Needs</label>
+            <input type="text" id="edit-profile-dietary" style="width:100%;">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Save Profile Changes
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. User Registration Modal -->
+  <div id="register-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Guest Account Registration</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+          Register to view past Indian sanctuary bookings, earn Kohinoor Elite points, and expedite arrival check-in.
+        </p>
+
+        <form id="register-user-form" onsubmit="event.preventDefault(); App.registerUser(
+          document.getElementById('reg-name').value,
+          document.getElementById('reg-email').value,
+          document.getElementById('reg-phone').value,
+          document.getElementById('reg-password').value,
+          document.getElementById('reg-address').value
+        );">
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Full Legal Name *</label>
+            <input type="text" id="reg-name" required placeholder="e.g. Vikramaditya Singhania" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Email Address *</label>
+            <input type="email" id="reg-email" required placeholder="vikram@singhania.in" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Mobile Number (+91)</label>
+            <input type="tel" id="reg-phone" placeholder="+91 98201 44521" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Account Password *</label>
+            <input type="password" id="reg-password" required placeholder="••••••••" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Home / Billing City Address</label>
+            <input type="text" id="reg-address" placeholder="Bandra West, Mumbai 400050" style="width:100%;">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Create Guest Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Administrator Login Modal -->
+  <div id="admin-login-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🛡️ Administrator Access</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+          Please authenticate with hotel management credentials to manage room tariffs in ₹ INR, edit bookings, and publish static CMS pages.
+        </p>
+
+        <form id="admin-login-form" onsubmit="event.preventDefault(); App.loginAdmin(document.getElementById('admin-user-input').value, document.getElementById('admin-pass-input').value);">
+          <div style="margin-bottom:1rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Admin Username</label>
+            <input type="text" id="admin-user-input" value="admin" required style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Admin Password</label>
+            <input type="password" id="admin-pass-input" value="admin123" required style="width:100%;">
+            <div style="font-size:0.75rem; color:var(--gold-400); margin-top:0.4rem;">
+              🔑 Default demo credentials: <strong>admin</strong> / <strong>admin123</strong>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Authenticate & Open Admin Portal
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Admin Edit Booking Modal -->
+  <div id="admin-edit-booking-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Admin Override: Edit Booking Details</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="admin-edit-booking-form" onsubmit="event.preventDefault(); App.saveAdminBookingEdits();">
+          <input type="hidden" id="admin-edit-booking-id">
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Guest Name</label>
+              <input type="text" id="admin-edit-guest-name" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Guest Email</label>
+              <input type="email" id="admin-edit-guest-email" required style="width:100%;">
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Sanctuary Category</label>
+              <select id="admin-edit-room" style="width:100%;"></select>
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Reservation Status</label>
+              <select id="admin-edit-status" style="width:100%;">
+                <option value="Confirmed">Confirmed</option>
+                <option value="Checked-In">Checked-In</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Check-In Date</label>
+              <input type="date" id="admin-edit-checkin" required style="width:100%;">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Check-Out Date</label>
+              <input type="date" id="admin-edit-checkout" required style="width:100%;">
+            </div>
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Special Concierge Notes</label>
+            <input type="text" id="admin-edit-requests" style="width:100%;">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Save Administrative Override
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Review & Rating Submission Modal -->
+  <div id="review-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Leave a Verified Stay Review</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="review-form" onsubmit="event.preventDefault(); App.submitReview();">
+          <input type="hidden" id="review-room-id">
+          
+          <div style="margin-bottom:1rem;">
+            <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Reviewed Sanctuary</span>
+            <strong id="review-room-name" style="font-family:var(--font-serif); font-size:1.15rem; color:var(--text-main);"></strong>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Star Rating</label>
+            <select id="review-star-rating" style="width:100%; font-size:1rem; font-weight:700; color:var(--gold-400);">
+              <option value="5">⭐⭐⭐⭐⭐ Exceptional (5 / 5)</option>
+              <option value="4">⭐⭐⭐⭐ Very Good (4 / 5)</option>
+              <option value="3">⭐⭐⭐ Average (3 / 5)</option>
+              <option value="2">⭐⭐ Fair (2 / 5)</option>
+              <option value="1">⭐ Poor (1 / 5)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.25rem;">Your Feedback & Impressions *</label>
+            <textarea id="review-comment-text" rows="4" required placeholder="Share your experience regarding the pure vegetarian cuisine, ayurvedic therapy, bedding comfort, and views..." style="width:100%;"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Publish Verified Review
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Room Details Modal -->
+  <div id="room-detail-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="detail-modal-room-name" class="modal-title"></h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="detail-modal-img" src="" alt="Room Full View" style="width:100%; height:320px; object-fit:cover; border-radius:8px; margin-bottom:1.5rem;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+          <div id="detail-modal-price" style="font-family:var(--font-serif); font-size:1.8rem; font-weight:700; color:var(--gold-400);"></div>
+          <button id="detail-modal-book-btn" class="btn btn-primary">
+            Reserve This Sanctuary
+          </button>
+        </div>
+
+        <div class="room-meta-chips" style="margin-bottom:1.5rem;">
+          <span class="meta-chip" id="detail-modal-capacity"></span>
+          <span class="meta-chip" id="detail-modal-size"></span>
+          <span class="meta-chip" id="detail-modal-bed"></span>
+          <span class="meta-chip" id="detail-modal-view"></span>
+        </div>
+
+        <p id="detail-modal-desc" style="color:var(--text-secondary); font-size:0.95rem; line-height:1.7; margin-bottom:2rem;"></p>
+
+        <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-main); margin-bottom:1rem;">Curated Amenities & Touchpoints</h4>
+        <div id="detail-modal-amenities" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:0.75rem; margin-bottom:2.5rem;"></div>
+
+        <h4 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--text-main); margin-bottom:1rem;">Guest Reviews & Ratings</h4>
+        <div id="detail-modal-reviews"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Official Indian GST Tax Invoice Voucher Modal -->
+  <div id="voucher-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Official Indian GST Reservation Voucher</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="voucher-content-body">
+          <!-- Injected dynamically by State.viewBookingVoucher() -->
+        </div>
+
+        <div style="margin-top:1.5rem; display:flex; justify-content:flex-end; gap:1rem;">
+          <button class="btn btn-primary btn-sm" onclick="window.print()">
+            🖨️ Print / Save GST PDF
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="closeModal('voucher-modal')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+          <span style="font-size:1.5rem;">⚜️</span>
+          <span style="font-family:var(--font-display); font-size:1.3rem; letter-spacing:0.08em; color:#fff; font-weight:700;">LUXEHORIZON</span>
+        </div>
+        <p style="font-size:0.85rem; line-height:1.7; margin-bottom:1.5rem; color:var(--text-secondary);">
+          Atithi Devo Bhava — India's premier collection of palace, coastal, backwater, and Himalayan retreats. Proudly carbon-neutral, Green Globe certified, and dedicated to authentic regional arts and pure vegetarian gastronomy.
+        </p>
+        <button class="btn btn-outline btn-sm" onclick="App.resetDefaults()">
+          🔄 Reset Demo Inventory & Bookings
+        </button>
+      </div>
+
+      <div class="footer-col">
+        <h4>Accommodations</h4>
+        <ul class="footer-links">
+          <li><a href="#" data-nav-target="rooms">All 8 Room Sanctuaries</a></li>
+          <li><a href="#" data-nav-target="resorts">Our 8 Indian Resorts</a></li>
+          <li><a href="#" data-nav-target="room-intro">Category & Suite Guide</a></li>
+          <li><a href="#" data-nav-target="dashboard">Guest Dashboard & Bookings</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Guest Services</h4>
+        <ul class="footer-links">
+          <li><a href="#" data-nav-target="faq">Customer Service Q&A</a></li>
+          <li><a href="#" data-nav-target="travel">Chauffeur & Travel Guide</a></li>
+          <li><a href="#" data-nav-target="about">About LuxeHorizon India</a></li>
+          <li><a href="#" data-nav-target="contact">Concierge & Front Desk</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Central Reservations (India)</h4>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.5rem;">
+          📍 Lake Pichola, Udaipur, Rajasthan 313001
+        </p>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.5rem;">
+          📞 1800 258 8900 (Toll-Free India)
+        </p>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:1rem;">
+          ✉️ reservations@luxehorizon.in
+        </p>
+        <a href="#" data-nav-target="privacy" style="font-size:0.8rem; color:var(--gold-400);">GST Policy, Terms & Privacy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 LuxeHorizon Resort & Hotel India Ltd. All Rights Reserved. (All Tariffs Quoted in ₹ INR)</div>
+      <div>Internet Programming Lab Experiment — Comprehensive Indian Luxury Hospitality System</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
